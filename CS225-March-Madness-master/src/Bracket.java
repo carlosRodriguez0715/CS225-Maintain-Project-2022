@@ -27,7 +27,7 @@ public class Bracket implements Serializable //Hillary: This bracket class is to
     public Bracket(ArrayList<String> starting){
         bracket = new ArrayList<String>(starting);
         while(bracket.size()<127){
-            bracket.add(0,"");
+            bracket.add(0, "");
         }
     }
 
@@ -99,10 +99,19 @@ public class Bracket implements Serializable //Hillary: This bracket class is to
             int child1 = 2 * root + 1;
             int child2 = 2 * root + 2;
 
-            if (child1 < 64) {//child is above round 1
+            /**
+             * @author: Carlos Rodriguez
+             * The error when clearing by all regions except full 
+             * display wrote all labels back except for Villanova's.
+             * 
+             * The problem was that the comparison was < 64 for both
+             * children nodes, and Villanova's very first label was
+             * at index 63. Problem solved.
+             */
+            if (child1 < 63) {//child is above round 1
                 resetSubtree(child1);
             }
-            if (child2 < 64) {
+            if (child2 < 63) {
                 resetSubtree(child2);
             }
             bracket.set(root, "");
@@ -259,4 +268,3 @@ public class Bracket implements Serializable //Hillary: This bracket class is to
         return teamScores[index];
     }
 }
-
